@@ -54,6 +54,7 @@ servantHandlers = toServant' A.WalletApiRecord
     , _settings    = settingsHandlers
     , _backup      = backupHandlers
     , _info        = infoHandlers
+    , _system      = systemHandlers
     }
 
 -- branches of the API
@@ -142,6 +143,11 @@ backupHandlers = toServant' A.WBackupApiRecord
 infoHandlers :: MonadFullWalletWebMode ctx m => ServerT A.WInfoApi m
 infoHandlers = toServant' A.WInfoApiRecord
     { _getClientInfo = M.getClientInfo
+    }
+
+systemHandlers :: MonadFullWalletWebMode ctx m => ServerT A.WSystemApi m
+systemHandlers = toServant' A.WSystemApiRecord
+    { _requestShutdown = M.requestShutdown
     }
 
 ----------------------------------------------------------------------------
